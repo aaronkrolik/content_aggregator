@@ -45,7 +45,9 @@ class Plugin:
     def getEpoch(self):
         date_time = '29.08.2011 11:05:02'
         pattern = '%d.%m.%Y %H:%M:%S'
-        return int(time.mktime(time.strptime(date_time, pattern)))
+        return time.time()
+        #return int(time.mktime(time.strptime(date_time, pattern)))
+
 
 
 

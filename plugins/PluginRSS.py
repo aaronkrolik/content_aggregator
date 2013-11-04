@@ -73,11 +73,12 @@ class PluginRSS(Plugin):
         
 
 if __name__ == "__main__":
+    print time.gmtime()
     plugin = PluginRSS()
     print plugin.getRSSURLs()
     print "\n*\n*\n"
-    l = plugin.retreiveData(plugin.listOfTargetURL)
-    print l
-    print "\n*\n*\n"
-    x = plugin.formatJSONStrForSolrIndexing(l)
-    print plugin.submitToSolr(x)
+    while True:
+        l = plugin.retreiveData(plugin.listOfTargetURL)
+        x = plugin.formatJSONStrForSolrIndexing(l)
+        print plugin.submitToSolr(x)
+        time.sleep(300)
