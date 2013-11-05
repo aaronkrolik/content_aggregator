@@ -18,7 +18,7 @@ class PluginRSS(Plugin):
     def __init__(self):
         self.listOfTargetURL = self.getRSSURLs()
     
-    def getRSSURLs(self, filepath="../resources/RSSURL"):
+    def getRSSURLs(self, filepath="./resources/RSSURL"):
         f = open(filepath, 'r')
         RSSTarget = collections.namedtuple("RSSTarget", "name, URL")
         listOfTargets = []
@@ -70,6 +70,13 @@ class PluginRSS(Plugin):
         response = f.read()
         
         return response
+    
+    def run(self):
+        while True:
+            l = self.retreiveData(self.listOfTargetURL)
+            x = self.formatJSONStrForSolrIndexing(l)
+            print self.submitToSolr(x)
+            time.sleep(300)
         
 
 if __name__ == "__main__":

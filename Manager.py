@@ -8,4 +8,4 @@ from plugins import *
 x = Plugin.returnListOfInstances()
 
 for instance in x:
-    instance.showMichaelThisWorks()
+    instance.run()
