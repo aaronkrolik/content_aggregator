@@ -14,8 +14,10 @@ import urllib
 class pyServer():
     
     
-    def pollSolr(self, num):
-        query = "http://localhost:8983/solr/collection1/select?q=" + urllib.quote('timestampEpoch_i:[{0} TO *]'.format(num)) + "&wt=json"
+    def pollSolr(self, queryString):
+        #query = "http://localhost:8983/solr/collection1/select?q=" + urllib.quote('timestampEpoch_i:[{0} TO *]'.format(num)) + "&wt=json"
+        query = "http://localhost:8983/solr/collection1/select?q=" + urllib.quote(queryString) + "&wt=json"
+        
         print query
         req = urllib2.Request(url=query)
         req.add_header('Content-type', 'application/json')
