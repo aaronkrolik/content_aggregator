@@ -46,7 +46,7 @@ class PluginRSS(Plugin):
         for item in itemList:
             tempDoc = {}
             title = item.getElementsByTagName("title")[0]
-            tempDoc["title_s"] = self.getText(title.childNodes)
+            tempDoc["title_t"] = self.getText(title.childNodes)
             tempDoc["timestampEpoch_i"] = self.getEpoch()
             tempDoc["type_s"] = "headline"
             tempDoc["id"] = self.getText(title.childNodes)
