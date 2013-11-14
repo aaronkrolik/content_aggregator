@@ -16,10 +16,12 @@ class SolrHandler(tornado.web.RequestHandler):
     solrFieldHeadline="title_t"
     solrFieldRows="rows"
     solrFieldFormat="wt"
+    solrFieldSorting="sort"
     clientFieldTimestamp="lastUpdate"
     clientFieldHeadline="search"
     maxHits="10"
     responseFormat="json"
+    sortingOrder=solrFieldTimestamp + " desc"
     #have these in a urlparse-friendly format
     solrScheme="http"
     solrNetloc="localhost:8983"
@@ -37,6 +39,7 @@ class SolrHandler(tornado.web.RequestHandler):
         solrQuery[self.solrFieldQuery]=self.solrFieldTimestamp + ":[" + clientQuery[self.clientFieldTimestamp][0] + " TO *] AND " + self.solrFieldHeadline + ":" + clientQuery[self.clientFieldHeadline][0]
         solrQuery[self.solrFieldRows]=self.maxHits
         solrQuery[self.solrFieldFormat]=self.responseFormat
+        solrQuery[self.solrFieldSorting]=self.sortingOrder
         return solrQuery
 
     def querySolr(self, solrQuery):
