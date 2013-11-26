@@ -53,7 +53,7 @@ class PluginRSS(Plugin):
                 tempDoc["link_t"] = self.getText(link.childNodes)
                 tempDoc["pubDate_s"] = self.getText(pubDate.childNodes)
                 tempDoc["title_t"] = self.getText(title.childNodes)
-                tempDoc["source_i"]=rawXMLOutputElementTup[1]
+                tempDoc["source_s"]=rawXMLOutputElementTup[1]
                 tempDoc["timestampEpoch_i"] = self.getEpoch()
                 tempDoc["type_s"] = "headline"
                 tempDoc["id"] = self.getText(title.childNodes)
@@ -95,5 +95,5 @@ if __name__ == "__main__":
     while True:
         l = plugin.retreiveData(plugin.listOfTargetURL)
         x = plugin.formatJSONStrForSolrIndexing(l)
-        #print plugin.submitToSolr(x)
+        print plugin.submitToSolr(x)
         time.sleep(300)
