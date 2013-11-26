@@ -95,10 +95,5 @@ if __name__ == "__main__":
     while True:
         l = plugin.retreiveData(plugin.listOfTargetURL)
         x = plugin.formatJSONStrForSolrIndexing(l)
-<<<<<<< HEAD
-        print plugin.submitToSolr(x)
-        time.sleep(300)
-=======
         #print plugin.submitToSolr(x)
         time.sleep(300)
->>>>>>> origin
