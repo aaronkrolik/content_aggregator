@@ -33,24 +33,34 @@ class PluginRSS(Plugin):
         for node in nodelist:
             if node.nodeType == node.TEXT_NODE:
                 rc.append(node.data)
-        return ''.join(rc)
+        return unicode(''.join(rc))
     
     def retreiveData(self, targets=[]):
         rawXMLOutputList = map(lambda x: urllib2.build_opener(urllib2.HTTPCookieProcessor).open(x.URL).read(), targets)
-        return rawXMLOutputList
+        return zip(rawXMLOutputList, [x.name for x in targets])
     
-    def formatHelper(self, rawXMLOutputElement):
+    def formatHelper(self, rawXMLOutputElementTup):
+        rawXMLOutputElement = rawXMLOutputElementTup[0]
         parsedDOM = minidom.parseString(rawXMLOutputElement)
         itemList = parsedDOM.getElementsByTagName("item")
         docList = []
         for item in itemList:
-            tempDoc = {}
-            title = item.getElementsByTagName("title")[0]
-            tempDoc["title_t"] = self.getText(title.childNodes)
-            tempDoc["timestampEpoch_i"] = self.getEpoch()
-            tempDoc["type_s"] = "headline"
-            tempDoc["id"] = self.getText(title.childNodes)
-            docList.append(tempDoc)
+            try:
+                tempDoc = {}
+                title = item.getElementsByTagName("title")[0]
+                link  = item.getElementsByTagName("link")[0]
+                pubDate = item.getElementsByTagName("pubDate")[0]
+                tempDoc["link_t"] = self.getText(link.childNodes)
+                tempDoc["pubDate_s"] = self.getText(pubDate.childNodes)
+                tempDoc["title_t"] = self.getText(title.childNodes)
+                tempDoc["source_i"]=rawXMLOutputElementTup[1]
+                tempDoc["timestampEpoch_i"] = self.getEpoch()
+                tempDoc["type_s"] = "headline"
+                tempDoc["id"] = self.getText(title.childNodes)
+                docList.append(tempDoc)
+            except:
+                print "Failed in format helper loop"
+                
         return docList
         
     def formatJSONStrForSolrIndexing(self, rawXMLOutputList):
@@ -80,12 +90,15 @@ class PluginRSS(Plugin):
         
 
 if __name__ == "__main__":
-    print time.gmtime()
     plugin = PluginRSS()
-    print plugin.getRSSURLs()
-    print "\n*\n*\n"
+    plugin.getRSSURLs()
     while True:
         l = plugin.retreiveData(plugin.listOfTargetURL)
         x = plugin.formatJSONStrForSolrIndexing(l)
+<<<<<<< HEAD
         print plugin.submitToSolr(x)
         time.sleep(300)
+=======
+        #print plugin.submitToSolr(x)
+        time.sleep(300)
+>>>>>>> origin
