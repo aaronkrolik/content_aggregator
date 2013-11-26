@@ -53,7 +53,8 @@ class PluginRSS(Plugin):
                 tempDoc["link_t"] = self.getText(link.childNodes)
                 tempDoc["pubDate_s"] = self.getText(pubDate.childNodes)
                 tempDoc["title_t"] = self.getText(title.childNodes)
-                tempDoc["source_s"]=rawXMLOutputElementTup[1]
+                if "tite_t" in tempDoc:
+                    tempDoc["source_s"]=rawXMLOutputElementTup[1]
                 tempDoc["timestampEpoch_i"] = self.getEpoch()
                 tempDoc["type_s"] = "headline"
                 tempDoc["id"] = self.getText(title.childNodes)
