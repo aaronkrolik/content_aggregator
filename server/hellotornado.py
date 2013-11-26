@@ -4,7 +4,6 @@ annotated tutorial of tornado
 import tornado.ioloop
 import tornado.web
 
-
 class MainHandler(tornado.web.RequestHandler):
     #what happens when we GET?
     def get(self):
