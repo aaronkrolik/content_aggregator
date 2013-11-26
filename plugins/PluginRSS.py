@@ -19,7 +19,7 @@ class PluginRSS(Plugin):
         self.listOfTargetURL = self.getRSSURLs()
     
     def getRSSURLs(self, filepath="./resources/RSSURL"):
-        f = open("/Users/aaronkrolik/Documents/workspace-new/moduleLoader/resources/RSSURL", 'r')
+        f = open(filepath, 'r')
         RSSTarget = collections.namedtuple("RSSTarget", "name, URL")
         listOfTargets = []
         for line in f:
