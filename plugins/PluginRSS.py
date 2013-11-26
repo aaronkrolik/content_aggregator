@@ -72,7 +72,7 @@ class PluginRSS(Plugin):
     
     def submitToSolr(self, JSONStr):
         
-        req = urllib2.Request(url='http://localhost:8983/solr/update/json?commit=true',
+        req = urllib2.Request(url='http://54.201.40.213:8983/solr/update/json?commit=true',
                               data=JSONStr)
         req.add_header('Content-type', 'application/json')
         f = urllib2.urlopen(req)
